@@ -59,25 +59,25 @@
 // 
 // from xml.etree.ElementTree import ElementTree, fromstring, tostring, dump, SubElement
 
-package robotMessages;
+package java_xml_library;
 
 // import javax.xml.parsers.SAXParser;
 // import javax.xml.parsers.SAXParserFactory;
 // import org.xml.sax.Attributes;
 // import org.xml.sax.SAXException;
 // import org.xml.sax.helpers.DefaultHandler;
-import java.io.*;
+//import java.io.*;
 
 import org.w3c.dom.*;
 
-import javax.xml.parsers.*;
-
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-import MicroTime.*;
+//import javax.xml.parsers.*;
+//
+//import javax.xml.transform.*;
+//import javax.xml.transform.dom.*;
+//import javax.xml.transform.stream.*;
+//import MicroTime.*;
    
-public class robotMessages
+public class RobotMessages
 {
 	/*Base class for all robot messages. Specifies the properties contained within the XML as well
 	as $this->XML, which is a SimpleXML element that can be interacted with normally.

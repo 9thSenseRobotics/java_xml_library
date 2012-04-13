@@ -1,19 +1,20 @@
-package messageFromRobot;
-
+package java_xml_library;
 import java.io.*;
 
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
+//import org.xml.sax.InputSource;
+//import org.xml.sax.InputSource;
+//import org.xml.sax.InputSource;
+//import javax.xml.transform.*;
+//import javax.xml.transform.dom.*;
+//import javax.xml.transform.stream.*;
 
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
+//import robotMessages.*;
+//import MicroTime.*;
 
-import robotMessages.*;
-import MicroTime.*;
-
-class messageFromRobot extends robotMessages
+class MessageFromRobot extends RobotMessages
 // For messages that are sent from a driver or controller to the robot
 //
 // Usage:
@@ -21,7 +22,7 @@ class messageFromRobot extends robotMessages
 //	$mfr = new messageFromRobot($rawXMLString); // build from the raw XML
 //	$mfr = new messageToRobot($driverAddr, $robotAddr, $responseValue [, $comment]);
 {	
-	public messageFromRobot(String xmlStr) 
+	public MessageFromRobot(String xmlStr) 
 	// single-argument constructor: Build this class from its XML string
 	{
 		timeStamp = new MicroTime().smicrotime();
@@ -46,7 +47,8 @@ class messageFromRobot extends robotMessages
 			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
 			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			XML = db.parse(xmlStr);
+			ByteArrayInputStream stream = new ByteArrayInputStream(xmlStr.getBytes());
+			XML = db.parse(stream);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,7 +57,7 @@ class messageFromRobot extends robotMessages
 // 		<t>timeStamp</t> 
 		Element t = XML.createElement("t");
 		t.appendChild (XML.createTextNode(timeStamp));
-		XML.appendChild(t);
+		rootElement.appendChild(t);
 
 // 		<d>driverAddr</d> 
 		NodeList nl = XML.getElementsByTagName("d");
@@ -82,7 +84,7 @@ class messageFromRobot extends robotMessages
 		comment = e.getTextContent();
 	}
 
-	public messageFromRobot(String da, String ra, String rv)
+	public MessageFromRobot(String da, String ra, String rv)
 	// 3-argument constructor: build this class from its component data with a response but without a comment
 	{
 		// set the class' properties from the passed-in values; if they're unspecified, set as empty
@@ -122,7 +124,7 @@ class messageFromRobot extends robotMessages
 		rootElement.appendChild(re);
 	}
 
-	public messageFromRobot(String da, String ra, String rv, String co)
+	public MessageFromRobot(String da, String ra, String rv, String co)
 	// 4-argument constructor: build this class from its component data with a response and a comment
 	{
 		// set the class' properties from the passed-in values; if they're unspecified, set as empty
